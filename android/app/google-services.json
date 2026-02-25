@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1092609896535",
-    "project_id": "spotify9999",
-    "storage_bucket": "spotify9999.firebasestorage.app"
+    "project_number": "163738235739",
+    "project_id": "spotify-clone-2e4e2",
+    "storage_bucket": "spotify-clone-2e4e2.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1092609896535:android:31072ee02ef2e4220e7312",
+        "mobilesdk_app_id": "1:163738235739:android:b8ffac678e958af872207e",
         "android_client_info": {
           "package_name": "com.example.spotify"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB1pwl6MHmtadugWRaNo42FxtHldsUOotQ"
+          "current_key": "AIzaSyCBL0Xsuepo9qehgGZ1QDCyBdIAR00ml3Y"
         }
       ],
       "services": {

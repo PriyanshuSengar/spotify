@@ -7,4 +7,5 @@ class AppImages {
   static const String topPattern = '${basePath}top_pattern.svg';
   static const String bottomPattern = '${basePath}bottom_pattern.svg';
   static const String authBG = '${basePath}auth_bg.png';
+  static const String homeArtist = '${basePath}home_artist.png';
 }

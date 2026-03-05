@@ -11,7 +11,7 @@ import 'package:spotify/persentation/splash/pages/splash.dart';
 import 'package:spotify/service_locator.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();  
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory:
         kIsWeb

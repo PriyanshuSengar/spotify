@@ -8,10 +8,19 @@ import 'package:spotify/persentation/auth/pages/signup.dart';
 import 'package:spotify/persentation/home/pages/home.dart';
 import 'package:spotify/service_locator.dart';
 
-class SigninPage extends StatelessWidget {
-  SigninPage({super.key});
+class SigninPage extends StatefulWidget {
+  const SigninPage({super.key});
+
+  @override
+  State<SigninPage> createState() => _SigninPageState();
+}
+
+class _SigninPageState extends State<SigninPage> {
   final TextEditingController _email = TextEditingController();
+
   final TextEditingController _password = TextEditingController();
+
+  bool _obscurePassward = true;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +92,7 @@ class SigninPage extends StatelessWidget {
     return TextField(
       controller: _email,
       decoration: const InputDecoration(
-        hintText: 'Enter Username Or Emial',
+        hintText: 'Enter Username Or Email',
       ).applyDefaults(Theme.of(context).inputDecorationTheme),
     );
   }
@@ -91,7 +100,20 @@ class SigninPage extends StatelessWidget {
   Widget _passwaordField(BuildContext context) {
     return TextField(
       controller: _password,
-      decoration: const InputDecoration(
+      obscureText: _obscurePassward,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscurePassward
+                ? Icons.visibility_outlined
+                : Icons.visibility_off_outlined,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscurePassward = !_obscurePassward;
+            });
+          },
+        ),
         hintText: ' Password',
         labelText: 'Password',
       ).applyDefaults(Theme.of(context).inputDecorationTheme),

@@ -7,6 +7,7 @@ import 'package:spotify/core/configs/assets/app_vectors.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/persentation/home/widgets/news_songs.dart';
 import 'package:spotify/persentation/home/widgets/play_list.dart';
+import 'package:spotify/persentation/profile/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,9 +27,21 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       appBar: BasicAppbar(
         hideBack: true,
+        action: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const ProfilePage(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.person),
+        ),
         title: Image.asset(AppVectors.logo, height: 150, width: 150),
       ),
       body: SingleChildScrollView(
@@ -40,7 +53,9 @@ class _HomePageState extends State<HomePage>
               height: 290,
               child: TabBarView(
                 controller: _tabController,
-                children: [NewsSongs(), Container(), Container(), Container()],
+                children: [NewsSongs(
+
+                ), Container(), Container(), Container()],
               ),
             ),
 

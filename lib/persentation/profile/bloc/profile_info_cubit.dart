@@ -1,0 +1,26 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify/domain/usecases/auth/get_user.dart';
+import 'package:spotify/persentation/profile/bloc/profile_info_state.dart';
+
+import 'package:spotify/service_locator.dart';
+
+class ProfileInfoCubit extends Cubit<ProfileInfoState> {
+
+  ProfileInfoCubit() : super (ProfileInfoLoading());
+
+  Future<void> getUser() async {
+
+    var user = await sl<GetUserUseCase>().call();
+
+    user.fold(
+      (l){
+        print("ERROR OCCURRED");
+      emit(ProfileInfoFailure());
+      }, 
+      (userEntity) {
+       print("USER LOADED: ${userEntity.email}");
+      emit(ProfileInfoLoaded(userEntity: userEntity));
+      }
+    );
+  }
+}

@@ -1,6 +1,7 @@
 class UserEtity {
-  String? userId;
+  String? imageURL;
   String? email;
   String? fullName;
-  UserEtity({this.email, this.fullName, this.userId});
+  UserEtity({this.email, this.fullName, this.imageURL });
 }
+  

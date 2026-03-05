@@ -9,11 +9,21 @@ import 'package:spotify/persentation/auth/pages/signin.dart';
 import 'package:spotify/persentation/home/pages/home.dart';
 import 'package:spotify/service_locator.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController fullName = TextEditingController();
+
   final TextEditingController email = TextEditingController();
+
   final TextEditingController password = TextEditingController();
+
+  bool _obscurePassward = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +38,13 @@ class SignupPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _registerText(),
-            SizedBox(height: 30),
+            SizedBox(height: 15),
             _fullNameField(context),
-            SizedBox(height: 30),
+            SizedBox(height: 19),
             _emailField(context),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             _passwaordField(context),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             BasicAppButton(
               onPressed: () async {
                 var result = await sl<SignupUseCase>().call(
@@ -47,9 +57,7 @@ class SignupPage extends StatelessWidget {
                 result.fold(
                   (l) {
                     var snackbar = SnackBar(
-                      content: Text(
-                       l
-                      ),
+                      content: Text(l),
                       behavior: SnackBarBehavior.floating,
                       backgroundColor: Colors.grey,
                       shape: RoundedRectangleBorder(
@@ -71,7 +79,6 @@ class SignupPage extends StatelessWidget {
               },
               title: 'Create Account',
             ),
-            
           ],
         ),
       ),
@@ -109,7 +116,20 @@ class SignupPage extends StatelessWidget {
   Widget _passwaordField(BuildContext context) {
     return TextField(
       controller: password,
-      decoration: const InputDecoration(
+      obscureText: _obscurePassward,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscurePassward
+                ? Icons.visibility_outlined
+                : Icons.visibility_off_outlined,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscurePassward = !_obscurePassward;
+            });
+          },
+        ),
         hintText: ' Password',
         labelText: 'Password',
       ).applyDefaults(Theme.of(context).inputDecorationTheme),

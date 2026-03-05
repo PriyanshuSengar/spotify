@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
-import 'package:spotify/core/configs/constants/app_urls.dart';
+import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
+import 'package:spotify/domain/entities/song/song.dart';
 import 'package:spotify/persentation/song_player.dart/bloc/song_player_cubit.dart';
 import 'package:spotify/persentation/song_player.dart/bloc/song_player_state.dart';
 
 class SongPlayerPage extends StatelessWidget {
-  const SongPlayerPage({super.key});
+  final SongEntity songEntity;
+  final String url;
+  final String artistName;
+  final String songName;
+  final String imagePath;
+  final String duration;
+  const SongPlayerPage({super.key , required this.songEntity, required this.url, required this.artistName, required this.songName, required this.imagePath,required this.duration});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +27,12 @@ class SongPlayerPage extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (_) => SongPlayerCubit()..loadsong(AppURLs.IMG1SONG),
+        create: (_) => SongPlayerCubit()..loadsong(url),
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Column(
             children: [
-              _songcover(context),
+              _songcover(context,imagePath),
               SizedBox(height: 20),
               _songDetail(),
               const SizedBox(height: 30),
@@ -37,14 +44,14 @@ class SongPlayerPage extends StatelessWidget {
     );
   }
 
-  Widget _songcover(BuildContext context) {
+  Widget _songcover(BuildContext context, String imagePath) {
     return Container(
       height: MediaQuery.of(context).size.height / 2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(AppURLs.img1),
+          image: NetworkImage(imagePath),
         ),
       ),
     );
@@ -58,28 +65,20 @@ class SongPlayerPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'In My Feelings',
+              songName,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             const SizedBox(height: 5),
             Text(
-              'Drake',
+              artistName,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
           ],
         ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.favorite_outline_rounded,
-            color: AppColors.darkgrey,
-            size: 35,
-          ),
-        ),
+       FavoriteButton(songEntity: songEntity,)
       ],
     );
   }
-
   Widget _songPlayer(BuildContext context) {
     return BlocBuilder<SongPlayerCubit, SongPlayerState>(
       builder: (context, state) {

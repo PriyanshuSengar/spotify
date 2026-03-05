@@ -6,29 +6,28 @@ import 'package:spotify/domain/repository/song/song.dart';
 import '../../../service_locator.dart';
 
 class SongRepositoryImpl extends SongsRepository {
-
   @override
   Future<Either> getNewsSongs() async {
     return await sl<SongFirebaseServie>().getNewSongs();
   }
-  
+
   @override
-  Future<Either> getPlayList()async {
+  Future<Either> getPlayList() async {
     return await sl<SongFirebaseServie>().getPlayList();
-    
   }
-  
+
   @override
-  Future<Either> addOrRemoveFavoriteSong(String songId) {
-    // TODO: implement addOrRemoveFavoriteSong
-    throw UnimplementedError();
+  Future<Either> addOrRemoveFavoriteSongs(String songId) async {
+    return await sl<SongFirebaseServie>().addOrRemoveFavoriteSong(songId);
   }
-  
+
   @override
-  Future<bool> isFavoriteSong(String songId) {
-    // TODO: implement isFavoriteSong
-    throw UnimplementedError();
+  Future<bool> isFavoriteSong(String songId) async {
+    return await sl<SongFirebaseServie>().isFavoriteSong(songId);
   }
-   
- 
-} 
+
+  @override
+  Future<Either> getUserFavoriteSongs() async {
+    return await sl<SongFirebaseServie>().getUserFavoriteSongs();
+  }
+}
